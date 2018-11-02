@@ -1,7 +1,7 @@
+/*
 The MIT License (MIT)
 
-Copyright (c) 2016 British Broadcasting Corporation.
-This software is provided by Lancaster University by arrangement with the BBC.
+Copyright (c) 2017 Lancaster University.
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the "Software"),
@@ -20,3 +20,46 @@ THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
+*/
+
+/**
+  * This file contains functions used to maintain compatability and portability.
+  * It also contains constants that are used elsewhere in the DAL.
+  */
+#include "MicroBitUtil.h"
+
+KeyValueTableEntry* KeyValueTable::find(const uint32_t key) const
+{
+	// Now find the nearest sample range to that specified.
+	KeyValueTableEntry *p = (KeyValueTableEntry *)data + (length - 1);
+	KeyValueTableEntry *result = p;
+
+	while (p >= (KeyValueTableEntry *)data)
+	{
+		if (p->key < key)
+			break;
+
+		result = p;
+		p--;
+	}
+
+	return result;
+}
+
+
+uint32_t KeyValueTable::get(const uint32_t key) const
+{
+	return find(key)->value;
+}
+
+uint32_t KeyValueTable::getKey(const uint32_t key) const
+{
+	return find(key)->key;
+}
+
+bool KeyValueTable::hasKey(const uint32_t key) const
+{
+	return (find(key)->key == key);
+}
+
+
