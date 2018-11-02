@@ -29,7 +29,7 @@ DEALINGS IN THE SOFTWARE.
 #include "mbed.h"
 #include "MicroBitConfig.h"
 #include "MicroBitComponent.h"
-#include "MicroBitCoordinateSystem.h"
+#include "CoordinateSystem.h"
 #include "MicroBitStorage.h"
 
 class MicroBitRotaryEncoder : public MicroBitComponent {
